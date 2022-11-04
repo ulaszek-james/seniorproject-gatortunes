@@ -1,0 +1,89 @@
+body {
+  background-color: #050619;
+  color: white;
+}
+
+.home-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.home-page-title {
+  font-size: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  font-weight: bold;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.user-info-card {
+  display: flex;
+  background-color: rgb(120, 120, 221);
+  margin: 20px;
+  padding: 40px;
+  border-radius: 25px;
+  margin-bottom: 80px;
+}
+
+.profile-picture {
+  height: 150px;
+  width: 150px;
+  margin-right: 50px;
+}
+
+.user-name {
+  font-size: 40px;
+}
+
+.top-tracks-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(120, 120, 221);
+  border-radius: 25px;
+  padding: 25px;
+  margin: 25px;
+  font-size: 15px;
+}
+
+.track-name {
+  font-weight: bold;
+}
+
+.top-track-combo {
+  padding: 20px;
+}
+
+.top-artists-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(120, 120, 221);
+  border-radius: 25px;
+  padding: 25px;
+  margin: 25px;
+  font-size: 15px;
+}
+
+.top-artist-combo {
+  padding: 20px;
+}
+.artist-name {
+  display: flex;
+  justify-content: center;
+}
+
+.my-top-text {
+  font-size: 40px;
+}

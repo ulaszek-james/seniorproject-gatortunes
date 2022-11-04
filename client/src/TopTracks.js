@@ -1,10 +1,9 @@
 export default function TopTracks({ track }) {
-
-    return (
-        <div>
-            <img src={ track.albumUrl } height={64} width={64}></img>
-            <h2>{ track.title }</h2>
-            <h3>{ track.artist }</h3>
-        </div>
-    )
+  return (
+    <div className="top-track-combo">
+      <img src={track.albumUrl} height={150} width={150}></img>
+      <div className="track-name">{track.title}</div>
+      <div>{track.artist}</div>
+    </div>
+  );
 }
