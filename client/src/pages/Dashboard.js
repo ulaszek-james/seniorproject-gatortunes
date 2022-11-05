@@ -21,6 +21,8 @@ export default function Dashboard({ code }) {
   const [userImage, setUserImage] = useState("");
   const [userTopTracks, setUserTopTracks] = useState([]);
   const [userTopArtists, setUserTopArtists] = useState([]);
+  const [userSpotifyURL, setUserSpotifyURL] = useState("");
+  const [userArtistData, setUserArtistData] = useState([]);
 
   // for whenever access token changes
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function Dashboard({ code }) {
 
     spotifyApi.getMe().then(
       (res) => {
+        setUserSpotifyURL(res.body.external_urls.spotify);
         setUsername(res.body.display_name);
         setUserImage(res.body.images[0].url);
       },
@@ -73,6 +76,7 @@ export default function Dashboard({ code }) {
     spotifyApi.getMyTopArtists({ limit: 5, time_range: "long_term" }).then(
       (res) => {
         console.log(res.body.items);
+        setUserArtistData(res.body.items);
         setUserTopArtists(
           res.body.items.map((artist) => {
             return {
@@ -92,7 +96,11 @@ export default function Dashboard({ code }) {
   return (
     <Container className="profile-container">
       <div className="user-info-container">
-        <UserInfo username={username} userImage={userImage} />
+        <UserInfo
+          userURL={userSpotifyURL}
+          username={username}
+          userImage={userImage}
+        />
       </div>
 
       <div className="favorites-container">
@@ -107,6 +115,12 @@ export default function Dashboard({ code }) {
         <div className="top-artists-container">
           {userTopArtists.map((artist) => (
             <TopArtists artist={artist} key={artist.uri} />
+          ))}
+        </div>
+        <div className="my-top-text">My top genres:</div>
+        <div className="top-genres-container">
+          {userArtistData.map((artist) => (
+            <div className="genre">{artist.genres[0]}</div>
           ))}
         </div>
       </div>
