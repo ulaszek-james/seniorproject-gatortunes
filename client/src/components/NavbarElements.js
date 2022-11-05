@@ -15,7 +15,7 @@ color: #7878DD;
 display: flex;
 align-items: center;
 text-decoration: none;
-padding: 0 1rem;
+padding: 0 8rem;
 height: 100%;
 cursor: pointer;
 &.active {
