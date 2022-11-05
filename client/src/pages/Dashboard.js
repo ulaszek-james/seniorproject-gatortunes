@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import useAuth from "./useAuth";
+import useAuth from "../useAuth";
 import { Container } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
-import UserInfo from "./UserInfo";
-import TopTracks from "./TopTracks";
-import TopArtists from "./TopArtists";
-import "./styles.css";
+import UserInfo from "../UserInfo";
+import TopTracks from "../TopTracks";
+import TopArtists from "../TopArtists";
+
+import NavBar from "../components/Navbar";
+import "../styles.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import About from "./about";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "8ab7f351ac43415586fa613bb9e7fe62",
