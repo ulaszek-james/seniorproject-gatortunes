@@ -6,13 +6,16 @@ const AUTH_URL =
 
 export default function Login() {
   return (
-    <div>
-      <Container className="home-page-container" style={{ minHeight: "100vh" }}>
-        <div className="home-page-title">Gator Tunes</div>
-        <a className="btn btn-success btn-lg" href={AUTH_URL}>
-          Login With Spotify
-        </a>
-      </Container>
-    </div>
+    <>
+      <div>
+        <div className="spacer layered-waves"></div>
+        <Container className="home-page-container" style={{ minHeight: "10vh" }}>
+          <div className="home-page-title">Gator Tunes</div>
+          <a className="btn btn-success btn-lg" href={AUTH_URL}>
+            Login With Spotify
+          </a>
+        </Container>
+      </div>
+    </>
   );
 }

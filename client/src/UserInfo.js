@@ -1,5 +1,5 @@
 import "./styles.css";
-import spotifyLogo from "./file-spotify-logo-png-4.png";
+import spotifyLogo from "./images/file-spotify-logo-png-4.png";
 
 export default function UserInfo({ userURL, username, userImage }) {
   return (
