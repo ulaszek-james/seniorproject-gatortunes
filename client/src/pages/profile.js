@@ -1,9 +1,9 @@
 import React from "react";
-
-const Profile = () => {
+import Dashboard from './Dashboard'
+const Profile = (code) => {
     return (
         <div>
-            <h1>About the team behind GatorTunes!</h1>
+        <Dashboard code={code}/>
         </div>
     );
 };

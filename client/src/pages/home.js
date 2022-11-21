@@ -1,11 +1,18 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+
 
 const Home = () => {
-    return (
-        <div>
-            <h1>About the team behind GatorTunes!</h1>
-        </div>
-    );
+      return (
+    <>
+      <div>
+        <div className="spacer layered-waves"></div>
+        <Container className="home-page-container" style={{ minHeight: "10vh" }}>
+          <div className="home-page-title">Gator Tunes</div>
+        </Container>
+      </div>
+    </>
+  );
 };
 
 export default Home;

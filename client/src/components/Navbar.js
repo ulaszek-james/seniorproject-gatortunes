@@ -1,24 +1,29 @@
 import React from "react";
 import { Nav, NavLink, NavMenu }
 	from "./NavbarElements";
+import { Outlet } from 'react-router-dom';   
 
-const Navbar = () => {
+const Navbar = (code) => {
     return (
-        <>
+        <div>
         <Nav>
             <NavMenu>
-            <NavLink to="/home" activeStyle>
+            <NavLink to="/" activeStyle>
                 Home
             </NavLink>
             <NavLink to="/about" activeStyle>
-                About Us
+                About
             </NavLink>
             <NavLink to="/profile" activeStyle>
                 Profile
             </NavLink>
+            <NavLink to='/login' activeStyle>
+                Login
+                </NavLink>
             </NavMenu>
         </Nav>
-        </>
+        <Outlet />
+        </div>
     );
 };
 
