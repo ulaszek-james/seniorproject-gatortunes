@@ -7,21 +7,22 @@ import About from "./pages/about";
 import Profile from "./pages/profile";
 import Home from "./pages/home";
 import SpotifyLogin from './SpotifyLogin'
+import SignUpPage from './SignUpPage'
 
 const code = new URLSearchParams(window.location.search).get("code");
 
 function App(){
-  return(
-    <Routes>
+
+  return (code ? ( <Routes>
       <Route path='/' element={<NavBar code={code} />}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/profile" element={<Profile code={code} />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Route>
-    </Routes>
-  ); 
-}
+    </Routes>) : (<SignUpPage />)
+    )
+  }
 
 export default App;
 
