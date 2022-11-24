@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc} from 'firebase/firestore'
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -63,7 +63,7 @@ export const createUserDocFromAuth = async (userAuthenticationObject) => {
 };
 
 //auth is keeping track of what users are currently signed in
-//export const signUserOut = async () => await signOut(auth);
+export const signUserOut = async () => await signOut(auth);
 
-//export const onAuthStateChangedListener = (callback) =>
- // onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);

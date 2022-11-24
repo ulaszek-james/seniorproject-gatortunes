@@ -1,9 +1,16 @@
 import React from "react";
+import { useContext } from 'react'
 import { Nav, NavLink, NavMenu }
 	from "./NavbarElements";
 import { Outlet } from 'react-router-dom';   
+import { UserContext} from '../contexts/googleuser.context';
+import { signUserOut } from '../firebase/firebase'
 
-const Navbar = (code) => {
+const Navbar = () => {
+
+    const { currentUser } = useContext(UserContext);
+    console.log(currentUser);
+
     return (
         <div>
         <Nav>
@@ -17,9 +24,17 @@ const Navbar = (code) => {
             <NavLink to="/profile" activeStyle>
                 Profile
             </NavLink>
-            <NavLink to='/login' activeStyle>
+
+            {currentUser ? (<NavLink onClick={signUserOut} activeStyle>
+                Log out
+                </NavLink>) :
+
+            (<NavLink  to='/login' activeStyle>
                 Login
-                </NavLink>
+                </NavLink>)
+                
+            }
+            
             </NavMenu>
         </Nav>
         <Outlet />

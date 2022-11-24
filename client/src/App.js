@@ -8,23 +8,39 @@ import Profile from "./pages/profile";
 import Home from "./pages/home";
 import SpotifyLogin from './SpotifyLogin'
 import SignUpPage from './SignUpPage'
+import { UserContext } from './contexts/googleuser.context'
+import { useContext } from 'react';
+
 
 const code = new URLSearchParams(window.location.search).get("code");
 
 function App(){
 
-  return (code ? ( <Routes>
-      <Route path='/' element={<NavBar code={code} />}>
+const { currentUser } = useContext(UserContext);
+
+
+  return (<Routes>
+      <Route path='/' element={<NavBar />}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/profile" element={<Profile code={code} />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<SignUpPage />}></Route>
       </Route>
-    </Routes>) : (<SignUpPage />)
-    )
+    </Routes>)
+
   }
 
 export default App;
+
+// return (currentUser ? ( <Routes>
+//   <Route path='/' element={<NavBar code={code} />}>
+//     <Route path="/" element={<Home />}></Route>
+//     <Route path="/about" element={<About />}></Route>
+//     <Route path="/profile" element={<Profile code={code} />}></Route>
+//     <Route path="/login" element={<SignUpPage />}></Route>
+//   </Route>
+// </Routes>) : (<SignUpPage />)
+// )
 
 
 /*

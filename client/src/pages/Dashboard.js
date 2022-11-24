@@ -8,7 +8,6 @@ import TopArtists from "../TopArtists";
 
 import NavBar from "../components/Navbar";
 import "../styles.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./about";
 
 const spotifyApi = new SpotifyWebApi({
