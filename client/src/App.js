@@ -17,13 +17,14 @@ const code = new URLSearchParams(window.location.search).get("code");
 function App(){
 
 const { currentUser } = useContext(UserContext);
+//console.log(code);
 
 
   return (<Routes>
       <Route path='/' element={<NavBar />}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/profile" element={<Profile code={code} />}></Route>
+        {code ? (<Route path="/profile" element={<Dashboard code={code} />}></Route>) : (<Route path="/profile" element={<SpotifyLogin />}></Route>)}
         <Route path="/login" element={<SignUpPage />}></Route>
       </Route>
     </Routes>)
@@ -32,6 +33,8 @@ const { currentUser } = useContext(UserContext);
 
 export default App;
 
+
+  
 // return (currentUser ? ( <Routes>
 //   <Route path='/' element={<NavBar code={code} />}>
 //     <Route path="/" element={<Home />}></Route>

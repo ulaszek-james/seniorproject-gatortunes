@@ -14,7 +14,10 @@ const spotifyApi = new SpotifyWebApi({
   clientId: "8ab7f351ac43415586fa613bb9e7fe62",
 });
 
-export default function Dashboard({ code }) {
+
+
+
+const Dashboard = ({ code }) => {
   const accessToken = useAuth(code);
   const [username, setUsername] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -126,3 +129,5 @@ export default function Dashboard({ code }) {
     </Container>
   );
 }
+
+export default Dashboard;

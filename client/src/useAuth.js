@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import {doc, setDoc, updateDoc} from 'firebase/firestore'
+import {db} from './firebase/firebase'
+import { UserContext } from './contexts/googleuser.context'
+import { useContext } from 'react';
 
 export default function useAuth(code) {
+
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser.uid);
+
   const [accessToken, setAccessToken] = useState()
   const [refreshToken, setRefreshToken] = useState()
   const [expiresIn, setExpiresIn] = useState()
+
+  //const userRef = doc(db, 'users', 
 
   useEffect(() => {
     axios
@@ -15,6 +25,7 @@ export default function useAuth(code) {
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
         setExpiresIn(res.data.expiresIn)
+
         window.history.pushState({}, null, "/")
       })
       .catch(() => {

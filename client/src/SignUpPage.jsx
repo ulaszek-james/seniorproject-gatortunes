@@ -14,9 +14,9 @@ const SignUpPage = () => {
   }
 
     return (
-        <div>
-        <h1>This is the signup page</h1>
-        <button onClick={logGoogleUser}>Login With Google</button>
+        <div className='sign-in-page'>
+        <div className='sign-in-title'>Sign In</div>
+        <button className='sign-in-button' onClick={logGoogleUser}>Login With Google</button>
         </div>
     );
 };
