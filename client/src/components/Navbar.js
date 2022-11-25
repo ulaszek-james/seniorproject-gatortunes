@@ -11,8 +11,7 @@ const Navbar = () => {
     const { currentUser } = useContext(UserContext);
     console.log(currentUser);
 
-    return (
-        <div>
+    return (currentUser ? (<div>
         <Nav>
             <NavMenu>
             <NavLink to="/" activeStyle>
@@ -38,8 +37,33 @@ const Navbar = () => {
             </NavMenu>
         </Nav>
         <Outlet />
-        </div>
+        </div>) : (<div>
+        <Nav>
+            <NavMenu>
+            <NavLink to="/" activeStyle>
+                Home
+            </NavLink>
+            <NavLink to="/about" activeStyle>
+                About
+            </NavLink>
+
+            {currentUser ? (<NavLink onClick={signUserOut} activeStyle>
+                Log out
+                </NavLink>) :
+
+            (<NavLink  to='/login' activeStyle>
+                Login
+                </NavLink>)
+                
+            }
+            
+            </NavMenu>
+        </Nav>
+        <Outlet />
+</div>)
+        
     );
 };
 
 export default Navbar;
+
