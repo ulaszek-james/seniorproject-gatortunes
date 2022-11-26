@@ -20,18 +20,33 @@ const { currentUser } = useContext(UserContext);
 //console.log(code);
 
 
-  return (<Routes>
+  return (currentUser ? 
+    
+    (<Routes>
       <Route path='/' element={<NavBar />}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         {code ? (<Route path="/profile" element={<Dashboard code={code} />}></Route>) : (<Route path="/profile" element={<SpotifyLogin />}></Route>)}
         <Route path="/login" element={<SignUpPage />}></Route>
       </Route>
-    </Routes>)
+  </Routes>) 
+  
+  : 
+  
+  (<Routes>
+      <Route path='/' element={<NavBar />}>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/profile" element={<Home />}></Route>
+        <Route path="/login" element={<SignUpPage />}></Route>
+      </Route>
+    </Routes>))
 
   }
 
 export default App;
+
+
 
 
   
