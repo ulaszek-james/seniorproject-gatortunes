@@ -17,12 +17,14 @@ import {
   getDocs,
   query,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 
 import NavBar from "../components/Navbar";
 import "../styles.css";
 import About from "./about";
 import ImportData from "../ImportData";
+import GetProfileData from "../GetProfileData";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "8ab7f351ac43415586fa613bb9e7fe62",
@@ -39,18 +41,29 @@ const Dashboard = ({ code }) => {
   const [userSpotifyURL, setUserSpotifyURL] = useState("");
   const [userArtistData, setUserArtistData] = useState([]);
 
-  const importSpotifyData = async () => {
-    console.log(userTopTracks[0]);
-    // await setDoc(doc(db, "tracks", "asdfa34sdf"), {
-    //   artist: userTopTracks[0].artist,
-    //   name: userTopTracks[0].title,
+  const importSpotifyDataToFirestore = async () => {
+    // const deleteQuery = query(
+    //   collection(db, "tracks"),
+    //   where("userID", "==", "eveZCZ3UbGQyNMExr35jQsbdwk22")
+    // );
+
+    // const deleteQuerySnapshot = await getDocs(deleteQuery);
+
+    // deleteQuerySnapshot.forEach((doc) => {
+    //   //delete the doc
+    //   deleteDoc(doc);
     // });
 
-    //set access token and refresh token
+    //add all of the data to firestore
+    await setDoc(doc(db, "userinfo", `${currentUser.uid}`), {
+      name: username,
+      profilePicture: userImage,
+      profileUrl: userSpotifyURL,
+    });
 
     userTopTracks.map(
       async (track) =>
-        await addDoc(collection(db, "tracks"), {
+        await setDoc(doc(db, "tracks", `${track.trackID}_${currentUser.uid}`), {
           artist: track.artist,
           name: track.title,
           uri: track.uri,
@@ -59,13 +72,18 @@ const Dashboard = ({ code }) => {
         })
     );
 
-    userArtistData.map(
+    userTopArtists.map(
       async (artist) =>
-        await addDoc(collection(db, "artists"), {
-          name: artist.name,
-          url: artist.images[0].url,
-          uri: artist.uri,
-        })
+        await setDoc(
+          doc(db, "artists", `${artist.artistID}_${currentUser.uid}`),
+          {
+            name: artist.name,
+            pictureUrl: artist.pictureUrl,
+            uri: artist.uri,
+            artistID: artist.artistID,
+            userID: currentUser.uid,
+          }
+        )
     );
   };
 
@@ -99,12 +117,13 @@ const Dashboard = ({ code }) => {
       (res) => {
         setUserTopTracks(
           res.body.items.map((track) => {
-            console.log(track.album.images);
+            //console.log(track);
             return {
               artist: track.artists[0].name,
               title: track.name,
               uri: track.uri,
               albumUrl: track.album.images[0].url,
+              trackID: track.id,
             };
           })
         );
@@ -121,15 +140,15 @@ const Dashboard = ({ code }) => {
 
     spotifyApi.getMyTopArtists({ limit: 5, time_range: "long_term" }).then(
       (res) => {
-        console.log(res.body.items);
         setUserArtistData(res.body.items);
-        console.log(res.body.items[0].images[0].url);
         setUserTopArtists(
           res.body.items.map((artist) => {
+            console.log(artist.id);
             return {
               name: artist.name,
-              url: artist.images[0].url,
+              pictureUrl: artist.images[0].url,
               uri: artist.uri,
+              artistID: artist.id,
             };
           })
         );
@@ -141,39 +160,43 @@ const Dashboard = ({ code }) => {
   }, [accessToken]);
 
   return (
-    <Container className="profile-container">
-      <button onClick={importSpotifyData}>Import Spotify Data</button>
-      <ImportData />
-      <div className="user-info-container">
-        <UserInfo
-          userURL={userSpotifyURL}
-          username={username}
-          userImage={userImage}
-        />
-      </div>
-
-      <div className="favorites-container">
-        <div className="my-top-text">My top tracks:</div>
-        <div className="top-tracks-container">
-          {userTopTracks.map((track) => (
-            <TopTracks track={track} key={track.uri} />
-          ))}
+    <div>
+      <button onClick={importSpotifyDataToFirestore}>
+        Import Spotify Data
+      </button>
+      <Container className="profile-container">
+        <GetProfileData></GetProfileData>
+        <div className="user-info-container">
+          <UserInfo
+            userURL={userSpotifyURL}
+            username={username}
+            userImage={userImage}
+          />
         </div>
 
-        <div className="my-top-text">My top artists:</div>
-        <div className="top-artists-container">
-          {userTopArtists.map((artist) => (
-            <TopArtists artist={artist} key={artist.uri} />
-          ))}
+        <div className="favorites-container">
+          <div className="my-top-text">My top tracks:</div>
+          <div className="top-tracks-container">
+            {userTopTracks.map((track) => (
+              <TopTracks track={track} key={track.uri} />
+            ))}
+          </div>
+
+          <div className="my-top-text">My top artists:</div>
+          <div className="top-artists-container">
+            {userTopArtists.map((artist) => (
+              <TopArtists artist={artist} key={artist.uri} />
+            ))}
+          </div>
+          <div className="my-top-text">My top genres:</div>
+          <div className="top-genres-container">
+            {userArtistData.map((artist) => (
+              <div className="genre">{artist.genres[0]}</div>
+            ))}
+          </div>
         </div>
-        <div className="my-top-text">My top genres:</div>
-        <div className="top-genres-container">
-          {userArtistData.map((artist) => (
-            <div className="genre">{artist.genres[0]}</div>
-          ))}
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
