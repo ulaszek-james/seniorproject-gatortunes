@@ -22,7 +22,7 @@ const GetProfileData = () => {
 
   //state variables for all of the data we get from firestore
   const [username, setUsername] = useState("");
-  const [userImage, setUserImage] = useState("");
+  const [userImage, setUserImage] = useState("hello");
   const [userTopTracks, setUserTopTracks] = useState([]);
   const [userTopArtists, setUserTopArtists] = useState([]);
   const [userSpotifyURL, setUserSpotifyURL] = useState("");
@@ -83,6 +83,13 @@ const GetProfileData = () => {
       <div className="top-artists-container">
         {userTopArtists.map((artist) => (
           <TopArtists artist={artist} key={artist.uri} />
+        ))}
+      </div>
+
+      <div className="my-top-text">My top genres:</div>
+      <div className="top-genres-container">
+        {userTopArtists.map((artist) => (
+          <div className="genre">{artist.genre}</div>
         ))}
       </div>
     </Container>

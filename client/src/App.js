@@ -9,14 +9,25 @@ import Home from "./pages/home";
 import SpotifyLogin from "./SpotifyLogin";
 import SignUpPage from "./SignUpPage";
 import { UserContext } from "./contexts/googleuser.context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import TestComponent from "./TestComponent";
+import { db } from "./firebase/firebase";
+import {
+  doc,
+  addDoc,
+  setDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  getDoc,
+} from "firebase/firestore";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
 function App() {
   const { currentUser } = useContext(UserContext);
-  //console.log(code);
+  //console.log(currentUser.uid);
 
   return currentUser ? (
     <Routes>
