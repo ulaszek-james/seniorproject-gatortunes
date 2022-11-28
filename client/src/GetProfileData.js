@@ -1,5 +1,7 @@
 import { UserContext } from "./contexts/googleuser.context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import TopTracks from "./TopTracks";
+import TopArtists from "./TopArtists";
 import { db } from "./firebase/firebase";
 import {
   doc,
@@ -9,51 +11,83 @@ import {
   getDocs,
   query,
   where,
+  getDoc,
 } from "firebase/firestore";
+import { Container } from "react-bootstrap";
 
 //gets user's spotify data out of Firestore, to be used on profile/dashboard
 const GetProfileData = () => {
   //gets currently logged in Google user
   const { currentUser } = useContext(UserContext);
 
-  console.log("getting profile data");
+  //state variables for all of the data we get from firestore
+  const [username, setUsername] = useState("");
+  const [userImage, setUserImage] = useState("");
+  const [userTopTracks, setUserTopTracks] = useState([]);
+  const [userTopArtists, setUserTopArtists] = useState([]);
+  const [userSpotifyURL, setUserSpotifyURL] = useState("");
 
-  //gets tracks that match currentUser from firestore
-  const getTracks = async () => {
-    //gets tracks
-    const q1 = query(
-      collection(db, "tracks"),
-      where("userID", "==", "eveZCZ3UbGQyNMExr35jQsbdwk22")
-    );
-    const query1Snapshot = await getDocs(q1);
+  useEffect(() => {
+    const getFireStoreData = async () => {
+      //gets tracks
+      const trackQuery = query(
+        collection(db, "tracks"),
+        where("userID", "==", currentUser.uid)
+      );
+      const trackQuerySnapshot = await getDocs(trackQuery);
 
-    //gets artists
-    const q2 = query(
-      collection(db, "artists"),
-      where("userID", "==", "eveZCZ3UbGQyNMExr35jQsbdwk22")
-    );
-    const query2Snapshot = await getDocs(q2);
+      //gets artists
+      const artistQuery = query(
+        collection(db, "artists"),
+        where("userID", "==", currentUser.uid)
+      );
+      const artistQuerySnapshot = await getDocs(artistQuery);
 
-    const q3 = query(
-      collection(db, "userinfo"),
-      where("userID", "==", "eveZCZ3UbGQyNMExr35jQsbdwk22")
-    );
-    const query3Snapshot = await getDocs(q2);
+      //get user info
+      const userInfoRef = doc(db, "userinfo", currentUser.uid);
+      const userInfoSnapshot = await getDoc(userInfoRef);
+      setUserImage(userInfoSnapshot.data().profilePicture);
+      setUsername(userInfoSnapshot.data().name);
+      setUserSpotifyURL(userInfoSnapshot.data().profileUrl);
 
-    query1Snapshot.forEach((doc) => {
-      console.log(doc.data());
-    });
+      //get tracks
+      trackQuerySnapshot.forEach((doc) => {
+        userTopTracks.push(doc.data());
+      });
 
-    console.log(query1Snapshot);
-    console.log(query2Snapshot);
-    console.log(query3Snapshot);
-  };
+      //get artists
+      artistQuerySnapshot.forEach((doc) => {
+        userTopArtists.push(doc.data());
+      });
+
+      console.log(userTopTracks);
+      console.log(userTopArtists);
+      console.log(userImage);
+    };
+
+    getFireStoreData();
+  }, []);
 
   return (
-    <div>
-      <button onClick={getTracks}>Get Data From Firestore</button>
-    </div>
+    <Container className="profile-container">
+      <div className="favorites-container">
+        <div className="my-top-text">My top tracks:</div>
+        <div className="top-tracks-container">
+          {userTopTracks.map((track) => (
+            <TopTracks track={track} key={track.uri} />
+          ))}
+        </div>
+      </div>
+
+      <div className="my-top-text">My top artists:</div>
+      <div className="top-artists-container">
+        {userTopArtists.map((artist) => (
+          <TopArtists artist={artist} key={artist.uri} />
+        ))}
+      </div>
+    </Container>
   );
 };
 
 export default GetProfileData;
+//<TopTracks track={track} key={track.uri} />

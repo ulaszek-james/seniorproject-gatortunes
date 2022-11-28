@@ -42,23 +42,12 @@ const Dashboard = ({ code }) => {
   const [userArtistData, setUserArtistData] = useState([]);
 
   const importSpotifyDataToFirestore = async () => {
-    // const deleteQuery = query(
-    //   collection(db, "tracks"),
-    //   where("userID", "==", "eveZCZ3UbGQyNMExr35jQsbdwk22")
-    // );
-
-    // const deleteQuerySnapshot = await getDocs(deleteQuery);
-
-    // deleteQuerySnapshot.forEach((doc) => {
-    //   //delete the doc
-    //   deleteDoc(doc);
-    // });
-
     //add all of the data to firestore
     await setDoc(doc(db, "userinfo", `${currentUser.uid}`), {
       name: username,
       profilePicture: userImage,
       profileUrl: userSpotifyURL,
+      userID: currentUser.uid,
     });
 
     userTopTracks.map(
@@ -122,7 +111,7 @@ const Dashboard = ({ code }) => {
               artist: track.artists[0].name,
               title: track.name,
               uri: track.uri,
-              albumUrl: track.album.images[0].url,
+              albumCoverUrl: track.album.images[0].url,
               trackID: track.id,
             };
           })
@@ -143,7 +132,6 @@ const Dashboard = ({ code }) => {
         setUserArtistData(res.body.items);
         setUserTopArtists(
           res.body.items.map((artist) => {
-            console.log(artist.id);
             return {
               name: artist.name,
               pictureUrl: artist.images[0].url,
@@ -159,13 +147,15 @@ const Dashboard = ({ code }) => {
     );
   }, [accessToken]);
 
+  //check if a document in userinfo with the currentuser.uid exists. if it
+  //does, show profile. else show import data to firestore button
   return (
     <div>
       <button onClick={importSpotifyDataToFirestore}>
-        Import Spotify Data
+        Import Spotify Data to Firestore
       </button>
+      <GetProfileData></GetProfileData>
       <Container className="profile-container">
-        <GetProfileData></GetProfileData>
         <div className="user-info-container">
           <UserInfo
             userURL={userSpotifyURL}

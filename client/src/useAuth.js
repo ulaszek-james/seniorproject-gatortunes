@@ -4,10 +4,10 @@ import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebase/firebase";
 import { UserContext } from "./contexts/googleuser.context";
 import { useContext } from "react";
+import { redirect } from "react-router";
 
 export default function useAuth(code) {
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser.uid);
 
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
@@ -24,6 +24,15 @@ export default function useAuth(code) {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
+        const userRef = doc(db, "users", `${currentUser.uid}`);
+        setDoc(
+          userRef,
+          {
+            accessToken: res.data.accessToken,
+            refreshToken: res.data.refreshToken,
+          },
+          { merge: true }
+        );
         window.history.pushState({}, null, "/");
       })
       .catch(() => {
