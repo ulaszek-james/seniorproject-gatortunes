@@ -1,20 +1,21 @@
 import React from "react";
-import Dashboard from './Dashboard'
-import SpotifyLogin from '../SpotifyLogin';
-import { UserContext } from '.././contexts/googleuser.context'
-import { useContext } from 'react';
+import Dashboard from "./Dashboard";
+import SpotifyLogin from "../SpotifyLogin";
+import { UserContext } from ".././contexts/googleuser.context";
+import { useContext } from "react";
+import TestComponent from "../TestComponent";
+import ImportData from "../ImportData";
 
 const Profile = (code) => {
+  const { currentUser } = useContext(UserContext);
 
-    const { currentUser } = useContext(UserContext);
-
-    return (code && currentUser ? 
-    (<div>
-        <Dashboard code={code}/>
-        </div>) 
-        : (<SpotifyLogin />)
-        
-    );
+  return code && currentUser ? (
+    <div>
+      <Dashboard code={code} />
+    </div>
+  ) : (
+    <SpotifyLogin />
+  );
 };
 
 export default Profile;

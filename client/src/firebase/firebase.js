@@ -1,7 +1,19 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc} from 'firebase/firestore'
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -14,7 +26,7 @@ const firebaseConfig = {
   projectId: "gator-tunes-d9dce",
   storageBucket: "gator-tunes-d9dce.appspot.com",
   messagingSenderId: "103851147427",
-  appId: "1:103851147427:web:133552abc90341532bff16"
+  appId: "1:103851147427:web:133552abc90341532bff16",
 };
 
 // Initialize Firebase
@@ -23,14 +35,14 @@ const app = initializeApp(firebaseConfig);
 //Create Google Auth Provider
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-  prompt: 'select_account'
+  prompt: "select_account",
 });
 
 //auth singleton
 export const auth = getAuth();
 
 //database singleton
-export const db = getFirestore();
+export const db = getFirestore(app);
 
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
