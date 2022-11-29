@@ -16,7 +16,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
   font-weight: bold;
 }
 
@@ -119,4 +118,35 @@ body {
 
 .layered-waves {
   background-image: url('./images/layered-waves-haikei.svg');
+}
+
+.sign-in-page{
+  border-color: black;
+  background-color: #050619;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 45px;
+  font-weight: bold;
+  padding: 250px;
+  margin: 250px;
+  border: 4px solid;
+}
+
+.sign-in-button {
+  background-color: rgb(58, 173, 135);
+  color: black;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 25px;
+}
+
+.sign-in-title {
+  display: flex;
+  border-color: rgb(120, 120, 221);
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
 }
