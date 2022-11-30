@@ -18,6 +18,7 @@ import {
   query,
   where,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 
 import NavBar from "../components/Navbar";
@@ -40,6 +41,7 @@ const Dashboard = ({ code }) => {
   const [userTopArtists, setUserTopArtists] = useState([]);
   const [userSpotifyURL, setUserSpotifyURL] = useState("");
   const [userArtistData, setUserArtistData] = useState([]);
+  const [userinfoExists, setUserInfoExists] = useState(false);
 
   const importSpotifyDataToFirestore = async () => {
     //add all of the data to firestore
@@ -76,6 +78,20 @@ const Dashboard = ({ code }) => {
         )
     );
   };
+
+  const checkIfExists = async () => {
+    console.log("heya");
+    const docRef = doc(db, "userinfo", currentUser.uid);
+    const docSnapshot = await getDoc(docRef);
+    const booleanVal = docSnapshot.exists();
+    console.log(booleanVal);
+    setUserInfoExists(booleanVal);
+    console.log(userinfoExists);
+  };
+
+  useEffect(() => {
+    checkIfExists();
+  }, []);
 
   // for whenever access token changes
   useEffect(() => {
@@ -152,22 +168,16 @@ const Dashboard = ({ code }) => {
 
   //check if a document in userinfo with the currentuser.uid exists. if it
   //does, show profile. else show import data to firestore button
-  return (
+  console.log(userinfoExists);
+  return userinfoExists ? (
+    <div>
+      <GetProfileData></GetProfileData>
+    </div>
+  ) : (
     <div>
       <button onClick={importSpotifyDataToFirestore}>
         Import Spotify Data to Firestore
       </button>
-
-      <Container className="profile-container">
-        <div className="user-info-container">
-          <UserInfo
-            userURL={userSpotifyURL}
-            username={username}
-            userImage={userImage}
-          />
-        </div>
-      </Container>
-      <GetProfileData></GetProfileData>
     </div>
   );
 };

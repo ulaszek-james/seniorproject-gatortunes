@@ -2,6 +2,7 @@ import { UserContext } from "./contexts/googleuser.context";
 import { useContext, useEffect, useState } from "react";
 import TopTracks from "./TopTracks";
 import TopArtists from "./TopArtists";
+import UserInfo from "./UserInfo";
 import { db } from "./firebase/firebase";
 import {
   doc,
@@ -46,6 +47,7 @@ const GetProfileData = () => {
       //get user info
       const userInfoRef = doc(db, "userinfo", currentUser.uid);
       const userInfoSnapshot = await getDoc(userInfoRef);
+      console.log(userInfoSnapshot.data());
       setUserImage(userInfoSnapshot.data().profilePicture);
       setUsername(userInfoSnapshot.data().name);
       setUserSpotifyURL(userInfoSnapshot.data().profileUrl);
@@ -68,8 +70,17 @@ const GetProfileData = () => {
     getFireStoreData();
   }, []);
 
+  console.log(userImage);
+
   return (
     <Container className="profile-container">
+      <div className="user-info-container">
+        <UserInfo
+          userURL={userSpotifyURL}
+          username={username}
+          userImage={userImage}
+        />
+      </div>
       <div className="favorites-container">
         <div className="my-top-text">My top tracks:</div>
         <div className="top-tracks-container">
