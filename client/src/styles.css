@@ -35,6 +35,43 @@ body {
   background-color: #42951e;
 }
 
+.about-page-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.about-page-title {
+  justify-content: center;
+  align-items: center;
+  margin: 2%;
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+.mission-statement {
+  margin-bottom: 2%;
+}
+
+.about-page-info {
+
+}
+
+.about-dave {
+
+}
+
+.about-rocco {
+
+}
+
+.about-james {
+
+}
+
 .profile-container {
   display: flex;
   justify-content: center;
@@ -84,7 +121,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(120, 120, 221);
+  background-color: #7878dd;
   border-radius: 25px;
   padding: 25px;
   margin: 25px;
@@ -138,7 +175,14 @@ body {
   background-image: url("./images/layered-waves-haikei.svg");
 }
 
-.sign-in-page {
+.stars-out {
+  background-image: url('./images/symbol-scatter-haikei.svg');
+  background-size: cover;
+  padding: 1em;
+  margin: 0em;
+}
+
+.sign-in-page{
   border-color: black;
   background-color: #050619;
   border-radius: 25px;

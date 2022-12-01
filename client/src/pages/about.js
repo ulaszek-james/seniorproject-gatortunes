@@ -4,11 +4,15 @@ import TestComponent from "../TestComponent";
 
 const About = () => {
   return (
-    <div>
-      <h1>This is the about page</h1>
-      <h2>Our mission statement</h2>
-      <h2>Meet the team</h2>
+    <>
+    <div className="about-page-container stars-out">
+      <div className="about-page-title">
+        <p>Our Mission</p>
+      </div>
+      <p className="mission-statement">We started Gator Tunes</p>
+      <h2> Let's meet the team...</h2>
     </div>
+    </>
   );
 };
 
