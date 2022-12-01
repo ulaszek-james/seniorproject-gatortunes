@@ -22,6 +22,7 @@ import {
   where,
   getDoc,
 } from "firebase/firestore";
+import ImportData from "./ImportData";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
@@ -34,13 +35,15 @@ function App() {
       <Route path="/" element={<NavBar />}>
         <Route path="/" element={<Home />}></Route>
 
+        <Route path="/importdata" element={<ImportData code={code} />}></Route>
         <Route path="/about" element={<About />}></Route>
-        {code ? (
-          <Route path="/profile" element={<Dashboard code={code} />}></Route>
+
+        <Route path="/profile" element={<Dashboard />}></Route>
+        {currentUser ? (
+          <Route path="/login" element={<SignUpPage />}></Route>
         ) : (
-          <Route path="/profile" element={<SpotifyLogin />}></Route>
+          <Route path="/login" element={<SpotifyLogin />}></Route>
         )}
-        <Route path="/login" element={<SignUpPage />}></Route>
       </Route>
     </Routes>
   ) : (
