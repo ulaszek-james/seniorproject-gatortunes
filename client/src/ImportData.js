@@ -28,6 +28,9 @@ const ImportData = ({ code }) => {
   const [userTopArtists, setUserTopArtists] = useState([]);
   const [userSpotifyURL, setUserSpotifyURL] = useState("");
   const [userArtistData, setUserArtistData] = useState([]);
+  const [importDisplayMessage, setImportDisplayMessage] = useState(
+    "Click here to import your Spotify Data"
+  );
 
   const importSpotifyDataToFirestore = async () => {
     //add all of the data to firestore
@@ -62,6 +65,9 @@ const ImportData = ({ code }) => {
             genre: artist.genre,
           }
         )
+    );
+    setImportDisplayMessage(
+      "Data imported! Please navigate to the profile page"
     );
   };
 
@@ -139,9 +145,11 @@ const ImportData = ({ code }) => {
   }, [accessToken]);
 
   return (
-    <div>
-      <h1>Click here to import your Spotify Data</h1>
-      <button onClick={importSpotifyDataToFirestore}>Import</button>
+    <div className="import-data-page">
+      <h1>{importDisplayMessage}</h1>
+      <button className="sign-in-button" onClick={importSpotifyDataToFirestore}>
+        Import
+      </button>
     </div>
   );
 };
