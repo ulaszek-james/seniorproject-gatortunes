@@ -33,7 +33,6 @@ body {
 
 .home-page-btn:hover {
   background-color: #42951e;
-  
 }
 
 .profile-container {
@@ -85,7 +84,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(120, 120, 221);
+  background-color: #7878dd;
   border-radius: 25px;
   padding: 25px;
   margin: 25px;
@@ -138,6 +137,15 @@ body {
   background-image: url('./images/layered-waves-haikei.svg');
 }
 
+.stars-out {
+  max-width: 100%;
+  max-height: 100%;
+  background-image: url('./images/symbol-scatter-haikei.svg');
+  background-size: cover;
+  padding: 1em;
+  margin: 1em;
+}
+
 .sign-in-page{
   border-color: black;
   background-color: #050619;
@@ -153,7 +161,7 @@ body {
 }
 
 .sign-in-button {
-  background-color: rgb(58, 173, 135);
+  background-color: #3aad87;
   color: black;
   padding: 15px;
   font-size: 15px;
