@@ -44,14 +44,14 @@ function App() {
       </Route>
     </Routes>
   ) : (
+    <>
     <Routes>
-      <Route path="/" element={<NavBar />}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/profile" element={<Home />}></Route>
         <Route path="/login" element={<SignUpPage />}></Route>
-      </Route>
     </Routes>
+    </>
   );
 }
 
