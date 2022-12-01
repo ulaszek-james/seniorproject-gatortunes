@@ -52,25 +52,32 @@ const GetProfileData = () => {
       setUsername(userInfoSnapshot.data().name);
       setUserSpotifyURL(userInfoSnapshot.data().profileUrl);
 
-      //get tracks
+      // //get tracks
       trackQuerySnapshot.forEach((doc) => {
         userTopTracks.push(doc.data());
       });
+
+      setUserTopTracks([...userTopTracks]);
 
       //get artists
       artistQuerySnapshot.forEach((doc) => {
         userTopArtists.push(doc.data());
       });
 
-      console.log(userTopTracks);
-      console.log(userTopArtists);
-      console.log(userImage);
+      setUserTopArtists([...userTopArtists]);
     };
 
     getFireStoreData();
   }, []);
 
   console.log(userImage);
+  console.log(userImage);
+
+  console.log(userImage);
+
+  console.log(userTopArtists);
+  console.log(userTopTracks);
+  //<div>{userTopTracks[0].uri}</div>
 
   return (
     <Container className="profile-container">
@@ -89,7 +96,6 @@ const GetProfileData = () => {
           ))}
         </div>
       </div>
-
       <div className="my-top-text">My top artists:</div>
       <div className="top-artists-container">
         {userTopArtists.map((artist) => (

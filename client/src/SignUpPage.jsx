@@ -17,14 +17,14 @@ const SignUpPage = () => {
   };
 
   return currentUser ? (
-    <div className="sign-in-page">
-      <div className="sign-in-title">You are logged in.</div>
+    <div>
+      <SpotifyLogin />
     </div>
   ) : (
     <div className="sign-in-page">
-      <div className="sign-in-title">Sign In</div>
-      <button className="sign-in-button" onClick={logGoogleUser}>
-        Login With Google
+      <div className="sign-in-title">Please sign in with Google</div>
+      <button className="import-data-button" onClick={logGoogleUser}>
+        Click to Login
       </button>
     </div>
   );

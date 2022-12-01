@@ -165,13 +165,14 @@ body {
   padding-bottom: 0px;
   flex-direction: column;
   width: 100%;
+  height: 400px;
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
 }
 
 .layered-waves {
-  background-image: url('./images/layered-waves-haikei.svg');
+  background-image: url("./images/layered-waves-haikei.svg");
 }
 
 .stars-out {
@@ -188,6 +189,7 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
   font-size: 45px;
   font-weight: bold;
   padding: 100px;
@@ -196,12 +198,13 @@ body {
 }
 
 .sign-in-button {
-  background-color: #3aad87;
-  color: black;
+  background-color: rgb(58, 173, 135);
+  color: white;
   padding: 15px;
   font-size: 15px;
   font-weight: bold;
   border-radius: 25px;
+  margin: 40px;
 }
 
 .sign-in-title {
@@ -212,3 +215,20 @@ body {
   padding: 50px;
 }
 
+.import-data-page {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.import-data-button {
+  background-color: rgb(58, 173, 135);
+  color: white;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 25px;
+  margin: 40px;
+}
