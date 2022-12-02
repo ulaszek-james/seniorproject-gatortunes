@@ -47,29 +47,15 @@ body {
 .about-page-title {
   justify-content: center;
   align-items: center;
-  margin: 2%;
   font-size: 3vw;
   font-weight: bold;
 }
 
 .mission-statement {
-  margin-bottom: 2%;
-}
-
-.about-page-info {
-
-}
-
-.about-dave {
-
-}
-
-.about-rocco {
-
-}
-
-.about-james {
-
+  margin: 25px auto;
+  font-size: 24px;
+  text-align: center;
+  max-width: 750px;
 }
 
 .profile-container {
@@ -231,4 +217,26 @@ body {
   font-weight: bold;
   border-radius: 25px;
   margin: 40px;
+}
+
+.team-pics {
+  display: flex;
+  gap: 150px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.team-pics img {
+  height: 400px;
+  width: auto;
+}
+
+.team-pics .name,
+ .text{
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.james, .dave, .daniel {
+  max-width: 500px;
 }
