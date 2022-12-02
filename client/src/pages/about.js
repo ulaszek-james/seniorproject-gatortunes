@@ -8,7 +8,7 @@ import daniel from '../images/daniel.jpg'
 const About = () => {
   return (
     <>
-    <div className="about-page-container stars-out">
+    <div className="about-page-container">
       <div className="about-page-title">
         <div>Our Mission</div>
       </div>
